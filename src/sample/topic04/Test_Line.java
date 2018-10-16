@@ -6,6 +6,14 @@ import org.junit.Test;
 
 public class Test_Line {
 
+    private Line testObject;
+
+    @Before
+    public void Before_Tests(){
+
+    }
+
+    // Constructor tests
     @Test
     public void Constructor_CalledWithTwoPoints_ReturnsLineObject(){
         Assert.assertTrue(new Line(10,10,10,10) instanceof Line);
@@ -20,4 +28,11 @@ public class Test_Line {
     public void Constructor_CalledWithPitchAndOffset_ReturnsLineObject() {
         Assert.assertTrue(new Line(2, 4) instanceof Line);
     }
+
+    @Test
+    public void Constructor_CalledWithVerticalLineXValue_ReturnsLineObject(){
+        Assert.assertTrue(new Line(2) instanceof Line);
+    }
+
+
 }
