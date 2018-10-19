@@ -33,7 +33,7 @@ public class Test_Line {
     }
 
     @Test
-    public void Constructor_CalledWithVerticalLineXValue_ReturnsLineObject(){
+    public void constructor_CalledWithVerticalLineXValue_ReturnsLineObject(){
         Assert.assertTrue(new Line(2) instanceof Line);
     }
 
