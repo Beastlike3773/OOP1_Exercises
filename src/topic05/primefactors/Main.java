@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         // Get the input number from the User
-        System.out.println("Enter your number: ");
+        System.out.println("Enter your number:");
         Scanner sc = new Scanner(System.in);
         long number = sc.nextInt();
 
@@ -17,7 +17,7 @@ public class Main {
         // Create the output string
         String factors = number + ": ";
 
-        // Add each prime fator to the string
+        // Add each prime factor to the string
         for (Integer factor : primeFactors) {
             factors += factor + ", ";
         }
@@ -37,7 +37,7 @@ public class Main {
         // Copy the original number to be able to manipulate it and still have a reference
         long refNumber = number;
 
-        // Loop through all the numbers smaller than our number the  of the number
+        // Loop through all the numbers smaller than our number
         // to find all prime factors
         for(int i = 2; i < refNumber; i++){
             // Create a boolean to be able to check if a number is a prime number
