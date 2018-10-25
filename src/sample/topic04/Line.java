@@ -4,7 +4,7 @@ import javafx.geometry.Point2D;
 
 public class Line {
 
-    double m, y, x, b;
+    double x, y, m ,b;
 
     public Line(double x1, double y1, double x2, double y2) {
         this.y = y1;
