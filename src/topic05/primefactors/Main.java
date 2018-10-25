@@ -12,26 +12,41 @@ public class Main {
             Scanner sc = new Scanner(System.in);
             long number = sc.nextInt();
 
-            // Create a list to put all prime factors and get the prime factors
-            List<Integer> primeFactors = getPrimeFactors(number);
+            try{
 
-            // Create the output string
-            String factors = number + ": ";
+                // Create a list to put all prime factors and get the prime factors
+                List<Integer> primeFactors = getPrimeFactors(number);
 
-            // Add each prime factor to the string
-            for (Integer factor : primeFactors) {
-                factors += factor + ", ";
+                // Create the output string
+                String factors = number + ": ";
+
+                // Add each prime factor to the string
+                for (Integer factor : primeFactors) {
+                    factors += factor + ", ";
+                }
+
+                // Remove the last ", " from the string
+                factors = factors.substring(0, factors.length() - 2);
+
+                // Print the output string in the console
+                System.out.println(factors);
+            }catch(Exception e){
+
+                // Print exception message
+                System.out.println(e.getMessage());
             }
-
-            // Remove the last ", " from the string
-            factors = factors.substring(0, factors.length() - 2);
-
-            // Print the output string in the console
-            System.out.println(factors);
         }
     }
 
-    public static List<Integer> getPrimeFactors(long number){
+    public static List<Integer> getPrimeFactors(long number) throws Exception{
+
+        // Throw exception when number smaller than 2 because it has no prime factors
+        if(number < 2){
+            throw new Exception("The number: " + number + " has no prime factors.");
+        }
+        // Create a boolean to be able to check if a number is a prime number
+        // or not
+        boolean prime = true;
 
         // Create a local list for all prime factors
         List<Integer> primeFactors = new ArrayList<Integer>();
@@ -39,12 +54,25 @@ public class Main {
         // Copy the original number to be able to manipulate it and still have a reference
         long refNumber = number;
 
+        // Check if the given number is a prime number and return itself as the only prim factor
+        if(number % 2 != 0){
+            for(int i = 3; i <= refNumber/2 + 1; i += 2){
+                if(refNumber % i == 0){
+                    prime = false;
+                    break;
+                }
+            }
+            if(prime) {
+                primeFactors.add((int) refNumber);
+                return primeFactors;
+            }
+        }
+
         // Loop through all the numbers smaller than our number
         // to find all prime factors
         for(int i = 2; i <=  refNumber/2 + 1; i++){
-            // Create a boolean to be able to check if a number is a prime number
-            // or not
-            boolean prime = true;
+            // Reset prime flag
+            prime = true;
 
             // Ignore all even numbers except 2, because they are not prime numbers
             if(i != 2 && i % 2 == 0){
