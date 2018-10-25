@@ -6,27 +6,29 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        // Get the input number from the User
-        System.out.println("Enter your number:");
-        Scanner sc = new Scanner(System.in);
-        long number = sc.nextInt();
+        while(true) {
+            // Get the input number from the User
+            System.out.println("Enter your number:");
+            Scanner sc = new Scanner(System.in);
+            long number = sc.nextInt();
 
-        // Create a list to put all prime factors and get the prime factors
-        List<Integer> primeFactors = getPrimeFactors(number);
+            // Create a list to put all prime factors and get the prime factors
+            List<Integer> primeFactors = getPrimeFactors(number);
 
-        // Create the output string
-        String factors = number + ": ";
+            // Create the output string
+            String factors = number + ": ";
 
-        // Add each prime factor to the string
-        for (Integer factor : primeFactors) {
-            factors += factor + ", ";
+            // Add each prime factor to the string
+            for (Integer factor : primeFactors) {
+                factors += factor + ", ";
+            }
+
+            // Remove the last ", " from the string
+            factors = factors.substring(0, factors.length() - 2);
+
+            // Print the output string in the console
+            System.out.println(factors);
         }
-
-        // Remove the last ", " from the string
-        factors = factors.substring(0, factors.length() - 2);
-
-        // Print the output string in the console
-        System.out.println(factors);
     }
 
     public static List<Integer> getPrimeFactors(long number){
@@ -39,7 +41,7 @@ public class Main {
 
         // Loop through all the numbers smaller than our number
         // to find all prime factors
-        for(int i = 2; i < refNumber; i++){
+        for(int i = 2; i <=  refNumber/2 + 1; i++){
             // Create a boolean to be able to check if a number is a prime number
             // or not
             boolean prime = true;
@@ -50,7 +52,7 @@ public class Main {
             }
 
             // Ignore all uneven numbers that are not prime numbers
-            for(int c = 3; c < i; c += 2){
+            for(int c = 3; c <= i/2 + 1; c += 2){
                 if(i % c == 0){
                     prime = false;
                     break;
