@@ -9,8 +9,8 @@ public class Main {
     private static int playerWins = 0;
     private static int playerLoses = 0;
     private static int nrOfGames = 100000;
-    private static long startbalance = 100;
-    private static long endbalance = 200;
+    private static long startbalance = 1000;
+    private static long endbalance = 1500;
 
 
     public static void main(String[] args){
@@ -43,7 +43,7 @@ public class Main {
         }
         balance -= amount;
 
-        if((random.nextInt(36) + 1) <= 17){
+        if((random.nextDouble()) <= 18.0/37.0){
             balance += amount * 2;
             //System.out.println("\u001B[32m" + "Player won betting on black with the amount: " + amount + ", balance: " + balance + "\u001B[0m");
             return true;

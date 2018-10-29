@@ -13,7 +13,6 @@ public class Main {
             long number = sc.nextInt();
 
             try{
-
                 // Create a list to put all prime factors and get the prime factors
                 List<Integer> primeFactors = getPrimeFactors(number);
 
@@ -31,7 +30,6 @@ public class Main {
                 // Print the output string in the console
                 System.out.println(factors);
             }catch(Exception e){
-
                 // Print exception message
                 System.out.println(e.getMessage());
             }

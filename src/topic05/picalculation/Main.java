@@ -32,6 +32,7 @@ public class Main extends Application {
 
         Rectangle rect = new Rectangle();
         rect.setLayoutY(10);
+        rect.setFill(Color.WHITE);
         rect.setLayoutX(10);
         rect.setWidth(1000);
         rect.setHeight(1000);
@@ -41,6 +42,7 @@ public class Main extends Application {
         rect.setVisible(true);
 
         circleMain = new Circle();
+        circleMain.setFill(Color.WHITE);
         circleMain.setCenterY(510);
         circleMain.setCenterX(510);
         circleMain.setRadius(500);
