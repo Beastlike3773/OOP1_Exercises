@@ -1,31 +1,82 @@
 package topic06.gameoflife;
 
+import java.util.Arrays;
+
 public class GameOfLife {
 
-    private int width, height;
     private boolean[][] cells;
 
+    private int n, m;
+
     public GameOfLife(int n, int m){
+        this.n = n;
+        this.m = m;
         this.cells = new boolean[n][m];
     }
 
-    private boolean isCellAlive(int n, int m){
+    public boolean isCellAlive(int n, int m){
         // A cell can have 8 neighbors
         boolean[] neighbors = new boolean[8];
+        Arrays.fill(neighbors, false);
         int nr_of_neighbors = 0;
 
         // Cell that has to be checked for
         boolean cell = this.cells[n][m];
 
-        // Start on top left cell and go clockwise
-        neighbors[0] = this.cells[n-1][m-1];
-        neighbors[1] = this.cells[n][m-1];
-        neighbors[2] = this.cells[n+1][m-1];
-        neighbors[3] = this.cells[n+1][m];
-        neighbors[4] = this.cells[n+1][m+1];
-        neighbors[5] = this.cells[n][m+1];
-        neighbors[6] = this.cells[n-1][m+1];
-        neighbors[7] = this.cells[n-1][m];
+        // Neighbors for corners
+        if(n == 0 && m == 0){
+            neighbors[0] = this.cells[n+1][m];
+            neighbors[1] = this.cells[n+1][m+1];
+            neighbors[2] = this.cells[n][m+1];
+        }else if(n == this.n-1 && m == 0){
+            neighbors[0] = this.cells[n][m+1];
+            neighbors[1] = this.cells[n-1][m+1];
+            neighbors[2] = this.cells[n-1][m];
+        }else if(n == this.n-1 && m == this.m-1){
+            neighbors[0] = this.cells[n-1][m-1];
+            neighbors[1] = this.cells[n][m-1];
+            neighbors[2] = this.cells[n-1][m];
+        }else if(n == 0 && m == this.m-1){
+            neighbors[1] = this.cells[n][m-1];
+            neighbors[2] = this.cells[n+1][m-1];
+            neighbors[3] = this.cells[n+1][m];
+        }
+
+        // Neighbors for edges
+        else if(n == 0){
+            neighbors[0] = this.cells[n][m-1];
+            neighbors[1] = this.cells[n+1][m-1];
+            neighbors[2] = this.cells[n+1][m];
+            neighbors[3] = this.cells[n+1][m+1];
+            neighbors[4] = this.cells[n][m+1];
+        }else if(m == 0){
+            neighbors[0] = this.cells[n+1][m];
+            neighbors[1] = this.cells[n+1][m+1];
+            neighbors[2] = this.cells[n][m+1];
+            neighbors[3] = this.cells[n-1][m+1];
+            neighbors[4] = this.cells[n-1][m];
+        }else if(n == this.n-1){
+            neighbors[0] = this.cells[n-1][m-1];
+            neighbors[1] = this.cells[n][m-1];
+            neighbors[2] = this.cells[n][m+1];
+            neighbors[3] = this.cells[n-1][m+1];
+            neighbors[4] = this.cells[n-1][m];
+        }else if(m == this.m-1){
+            neighbors[0] = this.cells[n-1][m-1];
+            neighbors[1] = this.cells[n][m-1];
+            neighbors[2] = this.cells[n+1][m-1];
+            neighbors[3] = this.cells[n+1][m];
+            neighbors[4] = this.cells[n-1][m];
+        }else{
+            neighbors[0] = this.cells[n-1][m-1];
+            neighbors[1] = this.cells[n][m-1];
+            neighbors[2] = this.cells[n+1][m-1];
+            neighbors[3] = this.cells[n+1][m];
+            neighbors[4] = this.cells[n+1][m+1];
+            neighbors[5] = this.cells[n][m+1];
+            neighbors[6] = this.cells[n-1][m+1];
+            neighbors[7] = this.cells[n-1][m];
+        }
 
         // Count the number of alive neighbors of this cell
         for(Boolean neighbor : neighbors){
@@ -37,7 +88,7 @@ public class GameOfLife {
         // Check the conditions on which a cell can be alive or become alive
         if((nr_of_neighbors == 2 || nr_of_neighbors == 3) && cell){
             return true;
-        }else if(nr_of_neighbors == 3 && cell){
+        }else if(nr_of_neighbors == 3 && !cell){
             return true;
         }
 
@@ -46,28 +97,36 @@ public class GameOfLife {
     }
 
     public int getWidth(){
-        return this.width;
+        return this.n;
     }
 
     public int getHeight(){
-        return this.height;
+        return this.m;
     }
 
     public void setCell(int i, int j){
-
+        this.cells[i][j] = true;
     }
 
-    public int getCell(int i, int j){
-
+    public boolean getCell(int i, int j){
+        return this.cells[i][j];
     }
 
-    public void nextGeneration(){
+    public void nextGeneration() {
+        //boolean[][] refCells = this.cells;
 
+        for (int i = 0; i < this.n; i++) {
+            for (int j = 0; j < this.m; j++) {
+                this.cells[i][j] = isCellAlive(i, j);
+            }
+        }
+
+        //this.cells = refCells;
     }
 
-    private int countNeighbors(int i, int j){
-
-    }
+    //private int countNeighbors(int i, int j){
+    //    return 0;
+    //}
 
     public void createBlinker(int i, int j){
         setCell(i,j);
