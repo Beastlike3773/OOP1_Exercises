@@ -18,14 +18,14 @@ public class Main extends Application {
     final static int CELLSIZE = 8 ;
     final static int CANVASWIDTH = WIDTH * CELLSIZE;
     final static int CANVASHEIGHT = HEIGHT * CELLSIZE ;
-    final static int DELAY = 5 ; // frames / s .
+    final static int DELAY = 5; // frames / s .
 
     private int frameCounter = 0 ;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         GameOfLife game = new GameOfLife (WIDTH, HEIGHT );
-        game.createBlinker(10,10);
+        game.createBlinker(10, 10);
         game.createBlinker(10,30);
         game.createGlider(20,30);
         game.createPentomino(50,50);

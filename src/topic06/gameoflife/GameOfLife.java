@@ -88,7 +88,7 @@ public class GameOfLife {
         // Check the conditions on which a cell can be alive or become alive
         if((nr_of_neighbors == 2 || nr_of_neighbors == 3) && cell){
             return true;
-        }else if(nr_of_neighbors == 3 && !cell){
+        }else if(nr_of_neighbors == 2 && !cell){
             return true;
         }
 
@@ -113,15 +113,21 @@ public class GameOfLife {
     }
 
     public void nextGeneration() {
-        //boolean[][] refCells = this.cells;
+        boolean[][] refCells = new boolean[n][m];
 
         for (int i = 0; i < this.n; i++) {
             for (int j = 0; j < this.m; j++) {
-                this.cells[i][j] = isCellAlive(i, j);
+                refCells[i][j] = this.cells[i][j];
             }
         }
 
-        //this.cells = refCells;
+        for (int i = 0; i < this.n; i++) {
+            for (int j = 0; j < this.m; j++) {
+                refCells[i][j] = isCellAlive(i, j);
+            }
+        }
+
+        this.cells = refCells;
     }
 
     //private int countNeighbors(int i, int j){
