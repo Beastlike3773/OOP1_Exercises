@@ -9,9 +9,9 @@ public class GameOfLife {
     private int n, m;
 
     public GameOfLife(int n, int m){
-        this.n = n;
-        this.m = m;
-        this.cells = new boolean[n][m];
+        this.n = n+2;
+        this.m = m+2;
+        this.cells = new boolean[this.n][this.m];
     }
 
     public boolean isCellAlive(int n, int m){
@@ -25,18 +25,22 @@ public class GameOfLife {
 
         // Neighbors for corners
         if(n == 0 && m == 0){
+            // Upper left corner
             neighbors[0] = this.cells[n+1][m];
             neighbors[1] = this.cells[n+1][m+1];
             neighbors[2] = this.cells[n][m+1];
         }else if(n == this.n-1 && m == 0){
+            // Upper right corner
             neighbors[0] = this.cells[n][m+1];
             neighbors[1] = this.cells[n-1][m+1];
             neighbors[2] = this.cells[n-1][m];
         }else if(n == this.n-1 && m == this.m-1){
+            // Lower right corner
             neighbors[0] = this.cells[n-1][m-1];
             neighbors[1] = this.cells[n][m-1];
             neighbors[2] = this.cells[n-1][m];
         }else if(n == 0 && m == this.m-1){
+            // Lower left corner
             neighbors[1] = this.cells[n][m-1];
             neighbors[2] = this.cells[n+1][m-1];
             neighbors[3] = this.cells[n+1][m];
@@ -44,30 +48,35 @@ public class GameOfLife {
 
         // Neighbors for edges
         else if(n == 0){
+            // Left edge
             neighbors[0] = this.cells[n][m-1];
             neighbors[1] = this.cells[n+1][m-1];
             neighbors[2] = this.cells[n+1][m];
             neighbors[3] = this.cells[n+1][m+1];
             neighbors[4] = this.cells[n][m+1];
         }else if(m == 0){
+            // Top edge
             neighbors[0] = this.cells[n+1][m];
             neighbors[1] = this.cells[n+1][m+1];
             neighbors[2] = this.cells[n][m+1];
             neighbors[3] = this.cells[n-1][m+1];
             neighbors[4] = this.cells[n-1][m];
         }else if(n == this.n-1){
+            // Right edge
             neighbors[0] = this.cells[n-1][m-1];
             neighbors[1] = this.cells[n][m-1];
             neighbors[2] = this.cells[n][m+1];
             neighbors[3] = this.cells[n-1][m+1];
             neighbors[4] = this.cells[n-1][m];
         }else if(m == this.m-1){
+            // Bottom edge
             neighbors[0] = this.cells[n-1][m-1];
             neighbors[1] = this.cells[n][m-1];
             neighbors[2] = this.cells[n+1][m-1];
             neighbors[3] = this.cells[n+1][m];
             neighbors[4] = this.cells[n-1][m];
         }else{
+            // When not touching any edges
             neighbors[0] = this.cells[n-1][m-1];
             neighbors[1] = this.cells[n][m-1];
             neighbors[2] = this.cells[n+1][m-1];
@@ -88,7 +97,7 @@ public class GameOfLife {
         // Check the conditions on which a cell can be alive or become alive
         if((nr_of_neighbors == 2 || nr_of_neighbors == 3) && cell){
             return true;
-        }else if(nr_of_neighbors == 2 && !cell){
+        }else if(nr_of_neighbors == 3 && !cell){
             return true;
         }
 
@@ -125,14 +134,12 @@ public class GameOfLife {
             for (int j = 0; j < this.m; j++) {
                 refCells[i][j] = isCellAlive(i, j);
             }
+            System.out.println();
         }
+        System.out.println("\n\n\n");
 
         this.cells = refCells;
     }
-
-    //private int countNeighbors(int i, int j){
-    //    return 0;
-    //}
 
     public void createBlinker(int i, int j){
         setCell(i,j);
@@ -154,5 +161,16 @@ public class GameOfLife {
         setCell(i+1,j+1);
         setCell(i+1,j-1);
         setCell(i+2,j-1);
+    }
+
+    public void createStuff(int i, int j, int times){
+        //setCell(i,j);
+        //setCell(i-1,j);
+        //setCell(i+1,j);
+        //setCell(i,j-1);
+
+        for(int c = 0; c < times; c++){
+            setCell(i, j+c);
+        }
     }
 }

@@ -2,6 +2,8 @@ package topic06.shuffle;
 
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -11,6 +13,7 @@ public class Main {
 
         int[] before = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
         int[] after = shuffleArray(before);
+        ArrayList<String> test;
 
         for(int i = 0; i < before.length; i++){
             System.out.println("Before: " + before[i] + ", After: " + after[i]);

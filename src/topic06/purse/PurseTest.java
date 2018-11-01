@@ -1,7 +1,12 @@
 package topic06.purse;
 
-public class PurseTest {
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
+public class PurseTest {
+    
     public static void main(String[] args){
         Purse a = new Purse();
         a.addCoin("Quarter");

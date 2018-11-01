@@ -13,6 +13,10 @@ public class Purse {
 
     private List<String> coins;
 
+    public List<String> getCoins(){
+        return coins;
+    }
+
     public Purse(String... inCoins){
         this.coins = new ArrayList<>();
 
