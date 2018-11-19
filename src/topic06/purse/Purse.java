@@ -1,6 +1,7 @@
 package topic06.purse;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,8 +24,15 @@ public class Purse {
         for(String coin : inCoins){
             this.coins.add(coin);
         }
+
+        int[] test = new int[12];
     }
 
+    /**
+     * Add a coin to the coin
+     * @param coinName the name of the coin to add to the purse
+     * (Precondition: Coin must exists)
+     */
     public void addCoin(String coinName){
         this.coins.add(coinName);
     }

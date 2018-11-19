@@ -19,12 +19,17 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import sample.topic04.File;
 
+import java.io.PrintStream;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class Main extends Application {
 
     public static File file;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -37,9 +42,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    public static void main(String[] args) {launch(args);}
 
     public static VBox getTextEditorVBox(){
         file = new File();

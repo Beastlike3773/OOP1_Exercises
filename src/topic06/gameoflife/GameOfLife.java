@@ -15,6 +15,7 @@ public class GameOfLife {
     }
 
     public boolean isCellAlive(int n, int m){
+        assert 1 == 0;
         // A cell can have 8 neighbors
         boolean[] neighbors = new boolean[8];
         Arrays.fill(neighbors, false);
@@ -167,8 +168,7 @@ public class GameOfLife {
         //setCell(i,j);
         //setCell(i-1,j);
         //setCell(i+1,j);
-        //setCell(i,j-1);
-
+        //setCell(i,j-1);f
         for(int c = 0; c < times; c++){
             setCell(i, j+c);
         }

@@ -1,6 +1,5 @@
 package sample.topic04;
 
-import sun.invoke.empty.Empty;
 
 import java.util.Scanner;
 
