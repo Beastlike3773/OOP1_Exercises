@@ -2,7 +2,7 @@ package topic07.atm;
 /**
    An ATM that accesses a bank.
 */
-public class ATM 
+public class ATM
 {  
    /**
       Constructs an ATM for a given bank.
