@@ -18,7 +18,7 @@ public class ATMFrame extends JFrame
       Constructs the user interface of the ATM frame.
    */
    public ATMFrame(ATM anATM)
-   {  
+   {
       theATM = anATM;
       
       // Construct components

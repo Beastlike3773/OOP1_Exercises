@@ -18,7 +18,7 @@ public class ATMSimulator
          theATM = new ATM(theBank);
       }
       catch(IOException e)
-      {  
+      {
          System.out.println("Error opening accounts file.");
          return;
       }
