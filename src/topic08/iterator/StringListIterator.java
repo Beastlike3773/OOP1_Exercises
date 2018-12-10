@@ -15,11 +15,11 @@ public class StringListIterator implements Iterator {
 
     @Override
     public boolean hasNext() {
-        return index < sList.size();
+        return sList != null && index < sList.size();
     }
 
     @Override
-    public Object next() {
+    public String next() {
         return sList.get(index++);
     }
 

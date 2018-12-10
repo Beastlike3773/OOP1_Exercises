@@ -15,8 +15,8 @@ public class StringIterator implements Iterator {
     }
 
     @Override
-    public Object next() {
-        return s.substring(index, index++ + 1);
+    public Character next() {
+        return s.charAt(index++);
     }
 
     @Override

@@ -13,7 +13,7 @@ public class DigitsIterator implements Iterator {
     }
 
     @Override
-    public Object next() {
+    public Integer next() {
         return digit++;
     }
 

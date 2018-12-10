@@ -12,11 +12,11 @@ public class StringTableIterator implements Iterator {
     }
     @Override
     public boolean hasNext() {
-        return row < sTable.length;
+        return sTable != null && row < sTable.length;
     }
 
     @Override
-    public Object next() {
+    public String next() {
         if (column < sTable[row].length - 1)
             return sTable[row][column++];
 
