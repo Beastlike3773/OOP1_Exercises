@@ -13,7 +13,7 @@ public interface CustomCalculator {
     return add(n -> n % 2 != 0, nums);
   }
 
-  private int add(IntPredicate predicate, int... nums) {
+  default int add(IntPredicate predicate, int... nums) {
     return IntStream.of(nums).filter(predicate).sum();
   }
 }

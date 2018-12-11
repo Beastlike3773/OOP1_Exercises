@@ -34,15 +34,14 @@ public class CircleDrawer extends Application {
         canvas.setLayoutY(0);
         canvas.setWidth(400);
         canvas.setHeight(480);
-        canvas.setOnMouseClicked(event -> {
+        /*canvas.setOnMouseClicked(event -> {
             circle.setRadius(radius);
             circle.setX((int)event.getX());
             circle.setY((int)event.getY());
             circle.setColor(Color.PURPLE);
 
             draw(circle);
-        });
-
+        });*/
         canvas.setOnMousePressed(event -> {
             circle.setX((int)event.getX());
             circle.setY((int)event.getY());
@@ -79,7 +78,7 @@ public class CircleDrawer extends Application {
         yTF.setLayoutY(130);
         yTF.setPrefWidth(40);
         TextField rTF = new TextField("0");
-        rTF.setOnKeyTyped(event -> {
+        rTF.setOnKeyReleased(event -> {
             radius = Integer.parseInt(rTF.getText());
         });
         rTF.setLayoutX(25);
@@ -111,7 +110,7 @@ public class CircleDrawer extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0,0,500,500);
         gc.setFill(circle.getColor());
-        gc.fillOval(circle.getX() - circle.getRadius()/2, circle.getY() - circle.getRadius()/2, circle.getRadius(), circle.getRadius());
+        gc.fillOval(circle.getX(), circle.getY(), circle.getRadius(), circle.getRadius());
     }
 
     public static void main(String[] args){

@@ -1,9 +1,5 @@
 package topic06.purse;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
 public class Main {
     
     public static void main(String[] args){
