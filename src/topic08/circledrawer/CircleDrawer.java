@@ -1,32 +1,52 @@
 package topic08.circledrawer;
 
 import javafx.application.Application;
-import javafx.geometry.Insets;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import static javafx.application.Application.launch;
 
 public class CircleDrawer extends Application {
 
     private Circle circle;
     private static Canvas canvas;
+    private static Text tMessage;
+    private static ComboBox<String> cbColor;
     private static int radius;
+    private boolean drag;
 
     @Override
     public void start(Stage stage) throws Exception {
         Group root = new Group();
         Circle circle = Circle.getInstance();
+        drag = false;
+
+        cbColor = new ComboBox<>();
+        cbColor.setLayoutX(20);
+        cbColor.setLayoutY(190);
+        cbColor.setPrefSize(70,20);
+        ObservableList<String> options =
+                FXCollections.observableArrayList(
+                        "Purple",
+                        "Green",
+                        "Yellow",
+                        "Red",
+                        "Blue",
+                        "Pink"
+                );
+        cbColor.setItems(options);
+        cbColor.setOnAction(event -> {
+            circle.setColor(Color.valueOf(cbColor.getValue()));
+        });
+        cbColor.setValue(options.get(0));
+        circle.setColor(Color.valueOf(cbColor.getValue()));
 
         // Stage
         canvas = new Canvas();
@@ -34,20 +54,21 @@ public class CircleDrawer extends Application {
         canvas.setLayoutY(0);
         canvas.setWidth(400);
         canvas.setHeight(480);
-        /*canvas.setOnMouseClicked(event -> {
+        canvas.setOnMouseClicked(event -> {
+            if(drag) return;
             circle.setRadius(radius);
             circle.setX((int)event.getX());
             circle.setY((int)event.getY());
-            circle.setColor(Color.PURPLE);
 
             draw(circle);
-        });*/
+        });
         canvas.setOnMousePressed(event -> {
+            if(!drag) return;
             circle.setX((int)event.getX());
             circle.setY((int)event.getY());
-            circle.setColor(Color.PURPLE);
         });
         canvas.setOnMouseReleased(event -> {
+            if(!drag) return;
             int x = Math.abs(circle.getX() - (int)event.getX());
             int y = Math.abs(circle.getY() - (int)event.getY());
             circle.setRadius((int)Math.sqrt(x*x + y*y));
@@ -90,15 +111,25 @@ public class CircleDrawer extends Application {
             circle.setRadius(radius);
             circle.setX(Integer.parseInt(xTF.getText()));
             circle.setY(Integer.parseInt(yTF.getText()));
-            circle.setColor(Color.PURPLE);
 
            draw(circle);
         });
         drawB.setLayoutX(20);
-        drawB.setLayoutY(190);
+        drawB.setLayoutY(230);
+        drawB.setPrefSize(70, 20);
 
-        root.getChildren().addAll(xL, yL, rL, xTF, yTF, rTF, drawB,
-                vLine, hLine, canvas);
+        CheckBox chbDrag = new CheckBox("Drag");
+        chbDrag.setLayoutX(20);
+        chbDrag.setLayoutY(270);
+        chbDrag.setOnAction(event -> {
+           drag = chbDrag.isSelected();
+        });
+
+        tMessage = new Text();
+        tMessage.setLayoutX(10);
+        tMessage.setLayoutY(495);
+
+        root.getChildren().addAll(xL, yL, rL, xTF, yTF, rTF, cbColor, drawB, tMessage, chbDrag,vLine, hLine, canvas);
 
         Scene scene = new Scene(root, 500,500);
         scene.setFill(Color.LIGHTGREY);
@@ -110,7 +141,8 @@ public class CircleDrawer extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0,0,500,500);
         gc.setFill(circle.getColor());
-        gc.fillOval(circle.getX(), circle.getY(), circle.getRadius(), circle.getRadius());
+        gc.fillOval(circle.getX() - circle.getRadius(), circle.getY()- circle.getRadius(), circle.getRadius()*2, circle.getRadius()*2);
+        tMessage.setText("Circle drawn: X: " + circle.getX() + ", Y: " + circle.getY() + ", Radius: " + circle.getRadius() + ", Color: " + cbColor.getValue());
     }
 
     public static void main(String[] args){
