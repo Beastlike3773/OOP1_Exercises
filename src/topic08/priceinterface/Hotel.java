@@ -23,13 +23,20 @@ public class Hotel implements Price {
     }
 
     // Entspricht dem Nettopreis
-    public Double getNettoPrice() {
+    public double getRoomPrice(){
         return roomPrice;
+    }
+    public Double getNettoPrice() {
+        return getRoomPrice();
     }
 
     // Entspricht dem Bruttopreis
-    public Double getBruttoPrice() {
+    public double getRoomPriceVAT(){
         return roomPrice * 1.038f;
+    }
+
+    public Double getBruttoPrice() {
+        return getRoomPriceVAT();
     }
 
     public int getNbrRooms() {

@@ -14,8 +14,26 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class CircleDrawer extends Application {
+    private class NumberField extends TextField{
+        public NumberField(String s){
+            super(s);
+        }
 
-    private Circle circle;
+        @Override
+        public void replaceText(int start, int end, String text){
+            if(text.matches("[0-9]") || text.equals("")){
+                super.replaceText(start, end, text);
+            }
+        }
+
+        @Override
+        public void replaceSelection(String text){
+            if(text.matches("[0-9]") || text.equals("")){
+                super.replaceSelection(text);
+            }
+        }
+    }
+
     private static Canvas canvas;
     private static Text tMessage;
     private static ComboBox<String> cbColor;
@@ -24,8 +42,8 @@ public class CircleDrawer extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Group root = new Group();
-        Circle circle = Circle.getInstance();
+        final Group root = new Group();
+        final Circle circle = Circle.getInstance();
         drag = false;
 
         cbColor = new ComboBox<>();
@@ -34,6 +52,7 @@ public class CircleDrawer extends Application {
         cbColor.setPrefSize(70,20);
         ObservableList<String> options =
                 FXCollections.observableArrayList(
+                        "Random",
                         "Purple",
                         "Green",
                         "Yellow",
@@ -43,9 +62,11 @@ public class CircleDrawer extends Application {
                 );
         cbColor.setItems(options);
         cbColor.setOnAction(event -> {
-            circle.setColor(Color.valueOf(cbColor.getValue()));
+            if(cbColor.getValue() != "Random"){
+                circle.setColor(Color.valueOf(cbColor.getValue()));
+            }
         });
-        cbColor.setValue(options.get(0));
+        cbColor.setValue(options.get(1));
         circle.setColor(Color.valueOf(cbColor.getValue()));
 
         // Stage
@@ -64,10 +85,13 @@ public class CircleDrawer extends Application {
         });
         canvas.setOnMousePressed(event -> {
             if(!drag) return;
+            if(cbColor.getValue() == "Random"){
+                circle.setColor(Color.color(Math.random(), Math.random(), Math.random()));
+            }
             circle.setX((int)event.getX());
             circle.setY((int)event.getY());
         });
-        canvas.setOnMouseReleased(event -> {
+        canvas.setOnMouseDragged(event -> {
             if(!drag) return;
             int x = Math.abs(circle.getX() - (int)event.getX());
             int y = Math.abs(circle.getY() - (int)event.getY());
@@ -76,10 +100,11 @@ public class CircleDrawer extends Application {
             draw(circle);
         });
 
+
         Line vLine = new Line(100, 5, 100,475);
-        //vLine.setFill(Color.LIGHTGRAY);
+        vLine.setStroke(Color.LIGHTGRAY);
         Line hLine = new Line(5, 480, 495,480);
-        //hLine.setFill(Color.LIGHTGRAY);
+        hLine.setStroke(Color.LIGHTGRAY);
 
         Label xL = new Label("X:");
         xL.setLayoutX(10);
@@ -90,15 +115,15 @@ public class CircleDrawer extends Application {
         Label rL = new Label("R:");
         rL.setLayoutX(10);
         rL.setLayoutY(160);
-        TextField xTF = new TextField("0");
+        NumberField xTF = new NumberField("0");
         xTF.setLayoutX(25);
         xTF.setLayoutY(100);
         xTF.setPrefWidth(40);
-        TextField yTF = new TextField("0");
+        NumberField yTF = new NumberField("0");
         yTF.setLayoutX(25);
         yTF.setLayoutY(130);
         yTF.setPrefWidth(40);
-        TextField rTF = new TextField("0");
+        NumberField rTF = new NumberField("0");
         rTF.setOnKeyReleased(event -> {
             radius = Integer.parseInt(rTF.getText());
         });
@@ -108,9 +133,12 @@ public class CircleDrawer extends Application {
 
         Button drawB = new Button("Draw");
         drawB.setOnAction(event -> {
-            circle.setRadius(radius);
-            circle.setX(Integer.parseInt(xTF.getText()));
-            circle.setY(Integer.parseInt(yTF.getText()));
+            try {
+                circle.setRadius(radius);
+                circle.setX(Integer.parseInt(xTF.getText()));
+            }catch(NumberFormatException e){
+                tMessage.setText("Error when reading text fields!");
+            }
 
            draw(circle);
         });
@@ -132,14 +160,14 @@ public class CircleDrawer extends Application {
         root.getChildren().addAll(xL, yL, rL, xTF, yTF, rTF, cbColor, drawB, tMessage, chbDrag,vLine, hLine, canvas);
 
         Scene scene = new Scene(root, 500,500);
-        scene.setFill(Color.LIGHTGREY);
+        scene.setFill(Color.WHITESMOKE);
         stage.setScene(scene);
         stage.show();
     }
 
     public static void draw(Circle circle){
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.clearRect(0,0,500,500);
+        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         gc.setFill(circle.getColor());
         gc.fillOval(circle.getX() - circle.getRadius(), circle.getY()- circle.getRadius(), circle.getRadius()*2, circle.getRadius()*2);
         tMessage.setText("Circle drawn: X: " + circle.getX() + ", Y: " + circle.getY() + ", Radius: " + circle.getRadius() + ", Color: " + cbColor.getValue());
