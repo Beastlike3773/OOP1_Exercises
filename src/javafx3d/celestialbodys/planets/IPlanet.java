@@ -5,4 +5,6 @@ import javafx3d.celestialbodys.ICelestialBody;
 
 public interface IPlanet extends ICelestialBody {
 
+    Double getDistanceToSun();
+
 }

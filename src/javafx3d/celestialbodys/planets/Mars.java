@@ -7,6 +7,7 @@ import javafx.scene.transform.Rotate;
 
 public class Mars implements IPlanet {
     private Double rotate;
+    private Double distanceToSun;
     private Sphere body;
     private PhongMaterial material;
     private Double radius;
@@ -15,6 +16,7 @@ public class Mars implements IPlanet {
     protected Mars(){
         rotate = 0d;
         radius = 3390d;
+        distanceToSun = 227.9;
 
         // Create sphere
         body = new Sphere(radius);
@@ -34,11 +36,16 @@ public class Mars implements IPlanet {
     }
 
     @Override
+    public Double getDistanceToSun() {
+        return distanceToSun;
+    }
+
+
+    @Override
     public Sphere getBody(int scale){
         body.setRadius(radius/scale);
         return body;
     }
-
     @Override
     public void rotateBy(double v) {
         body.setRotate(rotate += 0.2);

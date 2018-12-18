@@ -14,9 +14,7 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx3d.celestialbodys.planets.Earth;
-import javafx3d.celestialbodys.planets.IPlanet;
-import javafx3d.celestialbodys.planets.Mars;
+import javafx3d.celestialbodys.planets.*;
 import javafx3d.celestialbodys.stars.IStar;
 import javafx3d.celestialbodys.stars.Sun;
 
@@ -71,8 +69,10 @@ public class SolarSystem extends Application {
         stars.add(Sun.getInstance());
     }
     public static void createPlanets(){
-        planets.add(Mars.getInstance());
+        planets.add(Mercury.getInstance());
+        planets.add(Venus.getInstance());
         planets.add(Earth.getInstance());
+        planets.add(Mars.getInstance());
     }
 
     public static void addSpheresToStage(){
@@ -80,16 +80,16 @@ public class SolarSystem extends Application {
             spheres.add(s.getBody(10000));
         }
         for(IPlanet p : planets){
-            spheres.add(p.getBody(200));
+            spheres.add(p.getBody(100));
         }
+        Double pos = 200d;
 
-        Double space = 200d;
-        Double pos = 800d;
+        spheres.get(0).setLayoutY(scene.getHeight()/2);
+        spheres.get(0).setLayoutX(pos);
 
-        for(Sphere s : spheres) {
-            s.setLayoutY(scene.getHeight()/2);
-            s.setLayoutX(pos);
-            pos += space;
+        for(int i = 1; i < spheres.size(); i++) {
+            spheres.get(i).setLayoutY(scene.getHeight() / 2);
+            spheres.get(i).setLayoutX(spheres.get(0).getLayoutX() + (planets.get(i-1).getDistanceToSun()*5));
         }
     }
 

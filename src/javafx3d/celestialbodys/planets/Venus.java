@@ -5,7 +5,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 
-public class Earth implements IPlanet{
+public class Venus implements IPlanet {
     private Double rotate;
     private Double distanceToSun;
     private Sphere body;
@@ -13,11 +13,10 @@ public class Earth implements IPlanet{
     private Double radius;
 
     private static IPlanet instance;
-
-    protected Earth(){
+    protected Venus(){
         rotate = 0d;
-        radius = 6371d;
-        distanceToSun = 149.6;
+        radius = 6052d;
+        distanceToSun = 108.2;
 
         // Create sphere
         body = new Sphere(radius);
@@ -25,21 +24,15 @@ public class Earth implements IPlanet{
         material = new PhongMaterial();
         body.setMaterial(material);
         body.setRadius(radius);
-        material.setSelfIlluminationMap(new Image("file:./src/javafx3d/resources/earth_clouds.jpg"));
-        material.setDiffuseMap(new Image("file:./src/javafx3d/resources/earth.jpg"));
+        material.setDiffuseMap(new Image("file:./src/javafx3d/resources/venus.jpg"));
     }
 
     public static IPlanet getInstance(){
         if(instance == null){
-           instance = new Earth();
+            instance = new Venus();
         }
 
         return instance;
-    }
-
-    @Override
-    public Double getDistanceToSun() {
-        return distanceToSun;
     }
 
     @Override
@@ -47,6 +40,12 @@ public class Earth implements IPlanet{
         body.setRadius(radius/scale);
         return body;
     }
+
+    @Override
+    public Double getDistanceToSun() {
+        return distanceToSun;
+    }
+
 
     @Override
     public void rotateBy(double v) {
