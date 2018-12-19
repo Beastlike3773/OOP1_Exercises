@@ -5,7 +5,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 
-public class Mercury implements IPlanet {
+public class Mercury extends Planet {
     private Double rotate;
     private Double distanceToSun;
     private Sphere body;
@@ -48,7 +48,7 @@ public class Mercury implements IPlanet {
     }
 
     @Override
-    public void rotateBy(double v) {
+    public void rotate() {
         body.setRotate(rotate += 0.2);
         if(rotate == 360d){
             rotate = 0d;

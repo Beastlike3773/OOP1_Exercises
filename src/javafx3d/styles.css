@@ -1,0 +1,17 @@
+.returnButton {
+    -fx-font-family: "Comic Sans MS";
+    -fx-background-color:transparent ;
+    -fx-font-size: 30;
+    -fx-font-weight: Bold;
+    -fx-text-fill: #95adcd;
+    -fx-border-radius: 10;
+    -fx-border-color: #757d91;
+    -fx-border-width: 4 4 4 4;
+    -fx-pref-width: 150;
+    -fx-pref-height: 40;
+}
+
+.returnButton:hover {
+    -fx-text-fill: #afceee;
+    -fx-border-color: #aab5d0;
+}

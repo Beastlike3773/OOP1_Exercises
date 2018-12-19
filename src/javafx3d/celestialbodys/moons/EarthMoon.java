@@ -1,23 +1,26 @@
-package javafx3d.celestialbodys.stars;
+package javafx3d.celestialbodys.moons;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
-import javafx3d.celestialbodys.planets.Earth;
 import javafx3d.celestialbodys.planets.IPlanet;
+import javafx3d.celestialbodys.planets.Mars;
 
-public class Sun implements IStar {
+public class EarthMoon extends Moon {
     private Double rotate;
+    private Double distanceToPlanet;
     private Sphere body;
     private PhongMaterial material;
     private Double radius;
 
-    private static IStar instance;
+    private static IMoon instance;
 
-    protected Sun(){
+    protected EarthMoon(){
         rotate = 0d;
-        radius = 695508d;
+        radius = 1737d;
+        distanceToPlanet = 0.3844d;
+        planet = "Earth";
 
         // Create sphere
         body = new Sphere(radius);
@@ -25,28 +28,28 @@ public class Sun implements IStar {
         material = new PhongMaterial();
         body.setMaterial(material);
         body.setRadius(radius);
-        material.setDiffuseMap(new Image("file:./src/javafx3d/resources/sun.jpg"));
+        material.setDiffuseMap(new Image("file:./src/javafx3d/resources/earth_moon.jpg"));
     }
 
-    public static IStar getInstance(){
+    public static IMoon getInstance(){
         if(instance == null){
-            instance = new Sun();
+            instance = new EarthMoon();
         }
 
         return instance;
     }
 
     @Override
-    public Double getRadius(){
-        return radius;
+    public Double getDistanceToPlanet() {
+        return distanceToPlanet;
     }
+
 
     @Override
     public Sphere getBody(int scale){
         body.setRadius(radius/scale);
         return body;
     }
-
     @Override
     public void rotate() {
         body.setRotate(rotate += 0.2);
