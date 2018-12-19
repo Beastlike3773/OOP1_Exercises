@@ -112,10 +112,10 @@ public class SolarSystem extends Application {
             planetScale.setByZ(-transS);
             planetTrans.play();
             planetScale.play();
+            returnB.setDisable(true);
+            returnB.setVisible(false);
 
             planetTrans.setOnFinished(e -> {
-                returnB.setDisable(true);
-                returnB.setVisible(false);
                 inZoom = false;
             });
             for(Sphere s : spheres){
@@ -203,7 +203,7 @@ public class SolarSystem extends Application {
                     case "Earth":
                         for(int k = 1; k < spheres.size(); k++){
                             if(planets.get(k-1) instanceof Earth){
-                                moonSpheres.get(i).setLayoutX(spheres.get(i).getLayoutX());
+                                moonSpheres.get(i).setLayoutX(spheres.get(k).getLayoutX());
                                 moonSpheres.get(i).setLayoutY(scene.getHeight()/2);
                             }
                         }
